@@ -23,13 +23,13 @@ public class Main extends Application {
 
             BorderPane root = new BorderPane();
             Scene scene = new Scene(root);
-
             stage.setTitle("Joe");
             stage.setResizable(false);
             stage.setWidth(1024);
             stage.setHeight(768);
             stage.setScene(scene);
             stage.show();
+            scene.getStylesheets().add("stylesheet.css");
 
             /* THIS IS THE TOP BIT */
 
@@ -42,12 +42,15 @@ public class Main extends Application {
 
             TextField school = new TextField();
             school.setText("enter school");
+            school.setPrefWidth(80);
 
             topPane.getChildren().add(school);
 
             Button myButton = new Button("Confirm name and school");
-            myButton.setPrefSize(200, 50);
+            myButton.setPrefSize(300, 50);
             myButton.setOnAction((ActionEvent ae) -> doSomething(ae));
+            myButton.getStyleClass().add("start_screen_button");
+
 
             topPane.getChildren().add(myButton);
 
@@ -76,8 +79,9 @@ public class Main extends Application {
             bottomPane.getChildren().add(hbox);
 
             Button myButton2 = new Button("Confirm shape choice");
-            myButton2.setPrefSize(200, 50);
+            myButton2.setPrefSize(300, 50);
             myButton2.setOnAction((ActionEvent ae) -> doSomething(ae));
+            myButton2.getStyleClass().add("start_screen_button");
 
             bottomPane.getChildren().add(myButton2);
 
