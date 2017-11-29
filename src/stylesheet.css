@@ -6,3 +6,27 @@
     -fx-background-color: #ff0b00;
 }
 
+.easy_button {
+    -fx-text-fill: #fffdf8;
+    -fx-font-size: 20;
+    -fx-font-family: "Arial Black";
+    -fx-padding: 2;
+    -fx-background-color: #00ff08;
+}
+
+.medium_button {
+    -fx-text-fill: #fffdf8;
+    -fx-font-size: 20;
+    -fx-font-family: "Arial Black";
+    -fx-padding: 2;
+    -fx-background-color: #ffae00;
+}
+
+.hard_button {
+    -fx-text-fill: #fffdf8;
+    -fx-font-size: 20;
+    -fx-font-family: "Arial Black";
+    -fx-padding: 2;
+    -fx-background-color: #ff0003;
+}
+
