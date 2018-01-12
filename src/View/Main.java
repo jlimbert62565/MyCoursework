@@ -1,11 +1,11 @@
+package View;
+
 import Controller.MainController;
 import Model.DatabaseConnection;
 import javafx.application.Application;
-import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -14,7 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -41,7 +40,7 @@ public class Main extends Application {
         stage.setHeight(799);
         stage.setScene(scene);
         stage.show();
-        scene.getStylesheets().add("stylesheet.css");
+        scene.getStylesheets().add("Resources/stylesheet.css");
 
             /* THIS IS THE TOP BIT */
 
@@ -60,7 +59,7 @@ public class Main extends Application {
 
         root.setTop(topPane);
 
-        Image background = new Image("background.png");
+        Image background = new Image("Resources/background.png");
         ImageView backgroundImage = new ImageView(background);
         Pane backgroundPane = new Pane();
         backgroundPane.getChildren().add(backgroundImage);

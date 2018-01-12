@@ -1,25 +1,18 @@
 package View;
 
 import Controller.StageTwoController;
-import javafx.application.Application;
-import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class StageTwo {
+
+    public static Label question;
 
     static Pane parent;
 
@@ -42,12 +35,34 @@ public class StageTwo {
         stage.setResizable(false);
         stage.setOnCloseRequest((WindowEvent we) -> stc.closeStage(parent));
         stage.show();
-        scene.getStylesheets().add("stylesheet.css");
+        scene.getStylesheets().add("Resources/stylesheet.css");
 
         /* creating the health bar */
 
         VBox topPane= new VBox(10);
         root.setTop(topPane);
+
+
+        BorderPane centrePane = new BorderPane();
+        root.setCenter(centrePane);
+
+        HBox questionSpace = new HBox();
+        questionSpace.setPadding(new Insets(30));
+        questionSpace.setAlignment(Pos.CENTER);
+        question = new Label();
+        questionSpace.getChildren().add(question);
+        centrePane.setTop(questionSpace);
+
+        HBox answerSpace = new HBox();
+        final TextField answer = new TextField();
+        Button submitAnswer = new Button("OK");
+        answerSpace.setPadding(new Insets(40));
+        answerSpace.setAlignment(Pos.CENTER);
+        answerSpace.getChildren().add(answer);
+        answerSpace.getChildren().add(submitAnswer);
+        centrePane.setBottom(answerSpace);
+
+        submitAnswer.setOnAction((ae) -> stc.submitAnswer(answer));
 
         /* creating the question bar */
 
@@ -56,26 +71,17 @@ public class StageTwo {
         Button ButtonEasy = new Button("Light Attack");
         ButtonEasy.getStyleClass().add("easy_button");
         ButtonEasy.setPrefSize(335, 50);
-        ButtonEasy.setOnAction((ActionEvent ae) ->
-                System.out.println("This feature does not yet exist :)")
-                /*controller.openNewStage(name.getText(), school.getText(), radioGroup, root, startStage)); */
-        );
+        ButtonEasy.setOnAction((ActionEvent ae) -> stc.doAttack(1));
 
         Button ButtonMedium = new Button("Medium Attack");
         ButtonMedium.getStyleClass().add("medium_button");
         ButtonMedium.setPrefSize(335, 50);
-        ButtonMedium.setOnAction((ActionEvent ae) ->
-                        System.out.println("This feature does not yet exist :)")
-                /*controller.openNewStage(name.getText(), school.getText(), radioGroup, root, startStage)); */
-        );
+        ButtonMedium.setOnAction((ActionEvent ae) -> stc.doAttack(2));
 
         Button ButtonHard = new Button("Heavy Attack");
         ButtonHard.getStyleClass().add("hard_button");
         ButtonHard.setPrefSize(335, 50);
-        ButtonHard.setOnAction((ActionEvent ae) ->
-                        System.out.println("This feature does not yet exist :)")
-                /*controller.openNewStage(name.getText(), school.getText(), radioGroup, root, startStage)); */
-        );
+        ButtonHard.setOnAction((ActionEvent ae) -> stc.doAttack(3));
 
         bottomPane.getChildren().addAll(ButtonEasy, ButtonMedium, ButtonHard);
 
