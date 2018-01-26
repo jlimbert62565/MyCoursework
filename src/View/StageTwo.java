@@ -7,12 +7,16 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class StageTwo {
 
     public static Label question;
+    public static Rectangle healthBar;
+    public static Rectangle enemyBar;
 
     static Pane parent;
 
@@ -40,6 +44,19 @@ public class StageTwo {
         /* creating the health bar */
 
         VBox topPane= new VBox(10);
+
+        healthBar = new Rectangle();
+        healthBar.setWidth(300);
+        healthBar.setHeight(40);
+        healthBar.setFill(Color.GREEN);
+        topPane.getChildren().add(healthBar);
+
+        enemyBar = new Rectangle();
+        enemyBar.setWidth(300);
+        enemyBar.setHeight(40);
+        enemyBar.setFill(Color.RED);
+        topPane.getChildren().add(enemyBar);
+
         root.setTop(topPane);
 
 
@@ -62,7 +79,7 @@ public class StageTwo {
         answerSpace.getChildren().add(submitAnswer);
         centrePane.setBottom(answerSpace);
 
-        submitAnswer.setOnAction((ae) -> stc.submitAnswer(answer));
+        submitAnswer.setOnAction((ae) -> stc.submitAnswer(answer, stage));
 
         /* creating the question bar */
 

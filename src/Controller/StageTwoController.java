@@ -1,14 +1,21 @@
 package Controller;
 
 import View.StageTwo;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import java.util.Optional;
 import java.util.Random;
 
 public class StageTwoController {
 
     public int yourHealth;
     public int enemyHealth;
+
+    public int attackStrength;
 
     private int firstNumber = 0;
     private int secondNumber = 0;
@@ -28,6 +35,8 @@ public class StageTwoController {
 
     public void doAttack(int strength) {
 
+        attackStrength = strength;
+
         if (operator != 0 || strength < 1 || strength > 3) return;
 
         Random rnd = new Random(System.currentTimeMillis());
@@ -36,17 +45,17 @@ public class StageTwoController {
             case 1:
                 firstNumber = rnd.nextInt(10) + 1;
                 secondNumber = rnd.nextInt(10) + 1;
-                operator = rnd.nextInt(2)+ 1;
+                operator = rnd.nextInt(2) + 1;
                 break;
             case 2:
                 firstNumber = rnd.nextInt(10) + 1;
                 secondNumber = rnd.nextInt(10) + 1;
-                operator = rnd.nextInt(3)+ 1;
+                operator = rnd.nextInt(3) + 1;
                 break;
             case 3:
                 firstNumber = rnd.nextInt(20) + 1;
                 secondNumber = rnd.nextInt(20) + 1;
-                operator = rnd.nextInt(3)+ 1;
+                operator = rnd.nextInt(3) + 1;
                 break;
         }
 
@@ -72,26 +81,52 @@ public class StageTwoController {
 
     }
 
-    public void submitAnswer(TextField answer) {
+    public void submitAnswer(TextField answer, Stage stage) {
 
         if (answer.getText().equals(Integer.toString(this.answer))) {
-            System.out.println("Woooooooooooooo!");
+
+            enemyHealth -= attackStrength * 10;
+            if (enemyHealth <= 0) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("RESULT");
+                alert.setHeaderText("You have won!");
+                alert.setContentText("And made it out with " + yourHealth + " health remaining!");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    stage.close();
+                }
+            }
+            StageTwo.enemyBar.setWidth(3 * enemyHealth);
+
             answer.setText("");
             StageTwo.question.setText("");
             operator = 0;
         } else {
-            System.out.println("Noooooooooooooooooooooooooooooooooooooooo");
-            answer.setText("");
+
+            StageTwo.healthBar.setWidth(3 * yourHealth);
+            yourHealth -= 10;
+            if (yourHealth <= 0) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("RESULT");
+                alert.setHeaderText("You have died");
+                alert.setContentText("But managed to take the enemy down to " + enemyHealth);
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    stage.close();
+                }
+
+            }
+
         }
-
     }
-
 
 
     public void closeStage(Pane parent) {
 
         parent.setDisable(false);
-
     }
-
 }
+
+
